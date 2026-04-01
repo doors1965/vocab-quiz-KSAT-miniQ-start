@@ -284,6 +284,7 @@ input[type=text]:focus{border-color:var(--acc);}
     <div class="card">
       <div style="text-align:right;margin-bottom:.25rem;">
         <span id="sc-tasktype" style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;background:#E3EEF7;color:#1A3A5C;letter-spacing:.3px;"></span>
+      <div id="sc-selection" style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:.6rem;margin-top:.4rem;"></div>
       </div>
       <div class="score-emoji" id="sc-emoji"></div>
       <div class="score-big" id="sc-pct"></div>
@@ -1484,6 +1485,24 @@ function showScore(){
   };
   var taskEl=document.getElementById('sc-tasktype');
   if(taskEl) taskEl.textContent=taskLabels[quizMode]||quizMode;
+  // Show selected rounds/questions on results screen
+  var selEl=document.getElementById('sc-selection');
+  if(selEl){
+    selEl.innerHTML='';
+    var sortedSel=[...sSel].sort();
+    if(sortedSel.length>0){
+      var label=document.createElement('span');
+      label.style.cssText='font-size:10px;font-weight:700;padding:3px 9px;border-radius:12px;background:var(--acc);color:#fff;white-space:nowrap;';
+      label.textContent='📋 Rounds';
+      selEl.appendChild(label);
+      sortedSel.forEach(function(d){
+        var tag=document.createElement('span');
+        tag.style.cssText='font-size:10px;font-weight:600;padding:3px 9px;border-radius:12px;background:#E3EEF7;color:var(--acc);white-space:nowrap;';
+        tag.textContent=d;
+        selEl.appendChild(tag);
+      });
+    }
+  }
   document.getElementById('sc-emoji').textContent=emoji;
   document.getElementById('sc-pct').textContent=pct+'%';
   var name=document.getElementById('s-name').value;
