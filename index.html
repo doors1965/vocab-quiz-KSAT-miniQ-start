@@ -1746,6 +1746,12 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // ─── BUILD Q GRIDS ──────────────────────────────
+function updateCtr(sel,ctrId){
+  var n=WL.filter(function(w){return sel.has(w[4]);}).length;
+  var el=document.getElementById(ctrId);
+  if(el) el.innerHTML='<strong>'+n+'</strong> words selected';
+}
+
 function buildGrid(cid,selSet,ctrId){
   var g=document.getElementById(cid);if(!g)return;
   LESSONS.forEach(function(lesson){
